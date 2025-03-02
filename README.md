@@ -1,4 +1,4 @@
-# **Implementación de la API de AFIP (ARCA) con Firebase y Firebase Functions**
+# **Implementación de la API de AFIP (ARCA) con Node.js y Firebase Functions**
 # Ejemplo de generación de facturas tipo C, puede adaptarse a tus necesidades leyendo la documentación
 
 Este proyecto es una implementación de la API de **AFIP (ARCA)** para la generación de facturas electrónicas en Argentina. Utiliza **Firebase** como backend y **Firebase Functions** para ejecutar la lógica del servidor. Además, se integra con **Firebase Storage** para almacenar las facturas generadas y **Firestore** para gestionar los datos de las ventas.
@@ -6,7 +6,7 @@ Este proyecto es una implementación de la API de **AFIP (ARCA)** para la genera
 ---
 
 ## **Tecnologías Utilizadas**
-
+- **Node.js**: Entorno de ejecución para JavaScript en el servidor.
 - **Firebase**: Plataforma de desarrollo de aplicaciones que proporciona servicios como Firestore, Firebase Storage y Firebase Functions.
 - **Firebase Functions**: Servidor sin servidor (serverless) para ejecutar código en la nube.
 - **Firestore**: Base de datos NoSQL en tiempo real para almacenar datos de ventas y facturas.
