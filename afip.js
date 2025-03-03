@@ -9,10 +9,17 @@ const bucket = admin.storage().bucket(); // Acceso a Firebase Storage, donde est
 
 // Configuración
 const CUIT = 99999999999;
+const puntoVenta = 1; // tu punto de venta es 04566, pero en AFIP se usa sin el cero inicial
+
 // Usas los certificados generados en,  https://www.afip.gob.ar/ws/
 const certPath = 'certificados/testing-homologacion/MiCertificado.pem'; // Ruta en Firebase Storage
 const keyPath = 'certificados/testing-homologacion/MiClavePrivada.key'; // Ruta en Firebase Storage
 const nombreNegocio = 'Nombre de tu negocio';
+
+// certificados de produccion
+// const certPath = 'certificados/produccion/facturacionweb.pem'; // Ruta en Firebase Storage
+// const keyPath = 'certificados/produccion/facturacionweb.key'; 
+
 /**
  * Certificados de produccion.
  * 
@@ -26,16 +33,10 @@ const nombreNegocio = 'Nombre de tu negocio';
 const wsaaUrlHomo = 'https://wsaahomo.afip.gov.ar/ws/services/LoginCms?wsdl';
 const wsfeUrlHomo = 'https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL';
 
-/*
-URLs de Producción
-URL:
-const wsaaUrl = https://wsaa.afip.gov.ar/ws/services/LoginCms?wsdl
-
-2. WSFE (Web Service de Facturación Electrónica)
-URL:
-const wsfeUrl = https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL
-
-*/
+// URLs de Producción
+// const wsaaUrl = 'https://wsaa.afip.gov.ar/ws/services/LoginCms?wsdl'
+// WSFE (Web Service de Facturación Electrónica)
+// const wsfeUrl = 'https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL'
 
 //  Función para leer archivos desde Firebase Storage
 async function leerArchivoDesdeStorage(ruta) {
@@ -220,7 +221,7 @@ exports.generarFactura = onCall(async (request) => {
         // Obtener el último número de comprobante autorizado
         const ultimoNumeroResponse = await wsfeClient.FECompUltimoAutorizadoAsync({
             Auth: auth, // Token de autenticación
-            PtoVta: 4566, // Punto de venta
+            PtoVta: puntoVenta, // Punto de venta
             CbteTipo: 11, // Tipo de comprobante (Factura C)
         });
 
@@ -243,7 +244,7 @@ exports.generarFactura = onCall(async (request) => {
             FeCAEReq: {
                 FeCabReq: {
                     CantReg: 1,
-                    PtoVta: 4566, // tu punto de venta es 04566, pero en AFIP se usa sin el cero inicial
+                    PtoVta: puntoVenta, // tu punto de venta es 04566, pero en AFIP se usa sin el cero inicial
                     CbteTipo: 11,
                 },
                 FeDetReq: {
